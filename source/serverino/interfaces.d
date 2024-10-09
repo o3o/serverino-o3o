@@ -842,10 +842,10 @@ struct Request
          req.parseArgsString(S, output);
          assert(output.length == 2);
 
-         //assert(("per_page" in output) != null);
+         assert(("per_page" in output) != null);
          assert(("page" in output) != null);
-         //assert(o["per_page"] == "2");
-         //assert(o["page"] == "8");
+         assert(output["per_page"] == "2");
+         assert(output["page"] == "8");
       }
 
       char[] _data;
