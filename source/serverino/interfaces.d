@@ -792,6 +792,13 @@ struct Request
                lastIdx = curIdx;
                goto searchKey;
             }
+            else if (s[curIdx] == '?')
+            {
+               curIdx++;
+               lastIdx = curIdx;
+               goto searchKey;
+            }
+
             else if (s[curIdx] == '=')
             {
                key = s[lastIdx..curIdx].decodeComponent;
@@ -826,6 +833,19 @@ struct Request
                curIdx++;
                goto searchValue;
             }
+      }
+
+      unittest {
+         string[string] output;
+         enum S =  "/api/v1/sequences?per_page=2&page=8";
+         RequestImpl req;
+         req.parseArgsString(S, output);
+         assert(output.length == 2);
+
+         //assert(("per_page" in output) != null);
+         assert(("page" in output) != null);
+         //assert(o["per_page"] == "2");
+         //assert(o["page"] == "8");
       }
 
       char[] _data;
